@@ -5,22 +5,25 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false
+        allowNull: false,
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false
-      }
+        allowNull: false,
+      },
+      isArtist: {
+        type: DataTypes.BOOLEAN,
+      },
     },
     {}
   );
-  user.associate = function(models) {
-    // associations can be defined here
+  user.associate = function (models) {
+    user.hasMany(models.artwork);
   };
   return user;
 };
