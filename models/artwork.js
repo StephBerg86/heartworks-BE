@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       hearts: {
         type: DataTypes.INTEGER,
+        defaultValue: 0,
         allowNull: false,
       },
       minimumBid: {

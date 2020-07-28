@@ -132,9 +132,9 @@ You will be provided with a wireframe that shows an overview of the app along wi
 | Server contains sequelize models for Artwork and Bid                       | 2 2    |
 | Server contains migrations to create artworks and bids tables              | 2 2    |
 | required fields for artworks and bids are validated in models & migrations | 2 2    |
-| User, Artwork and Bid models are correctly related                         | 2      |
-| Seeders are present to create at least 3 artworks and 5 bids               | 2      |
-| Total                                                                      | 10     |
+| User, Artwork and Bid models are correctly related                         | 2 2    |
+| Seeders are present to create at least 3 artworks and 5 bids               | 2 2    |
+| Total                                                                      | 10 10  |
 
 ## Features
 
