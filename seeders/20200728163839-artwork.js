@@ -8,7 +8,7 @@ module.exports = {
         {
           title: "South bank",
           imageUrl:
-            "https://www.goossenswonen.nl/static/uploads/pictures/large/8194697-01.jpg",
+            "https://www.amersfoortart.nl/wp-content/uploads/2019/09/Banksymuur2.jpg",
           hearts: 0,
           minimumBid: 0,
           createdAt: new Date(),
