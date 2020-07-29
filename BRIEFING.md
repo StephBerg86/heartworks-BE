@@ -352,7 +352,7 @@ You will be provided with a wireframe that shows an overview of the app along wi
 
 | 6. Criteria - Signing up as an artist                                              | Points | Self | Evaluator |
 | ---------------------------------------------------------------------------------- | ------ | ---- | --------- |
-| A separate migration is created to add a column `isArtist` to our users table      | 3      |      |           |
+| A separate migration is created to add a column `isArtist` to our users table      | 3 3    |      |           |
 | A checkbox is added to the signup form                                             | 1      |      |           |
 | The `signUp` action also sends a value for `isArtist` when posting to the server   | 1      |      |           |
 | When the checkbox is checked on signup, the user created has `isArtist: true`      | 1      |      |           |

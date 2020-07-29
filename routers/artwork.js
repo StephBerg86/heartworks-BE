@@ -77,7 +77,7 @@ router.get("/artwork/:id", async (req, res) => {
 //   }
 // });
 
-router.post("/artwork", async (req, res, next) => {
+router.post("/artwork/:userId", auth, async (req, res, next) => {
   try {
     const title = req.body.title;
     const imageUrl = req.body.imageUrl;
@@ -104,10 +104,10 @@ router.patch("/artwork/:id", auth, async (req, res) => {
   if (!art.userId === req.user.id) {
     return res
       .status(403)
-      .send({ message: "You are not authorized to update this homepage" });
+      .send({ message: "You are not authorized to update this artwork" });
   }
-  const { title, imageUrl, minimumBid } = req.body;
-  await art.update({ title, imageUrl, minimumBid });
+  const { title, imageUrl, hearts, minimumBid } = req.body;
+  await art.update({ title, imageUrl, hearts, minimumBid });
   return res.status(200).send({ art });
 });
 

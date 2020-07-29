@@ -21,9 +21,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      isArtist: {
-        type: Sequelize.BOOLEAN,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
