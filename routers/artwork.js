@@ -5,15 +5,6 @@ const auth = require("../auth/middleware");
 
 const router = new Router();
 
-// router.get("/artwork", async (request, response) => {
-//   try {
-//     const art = await Artwork.findAll();
-//     response.json(art);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-
 router.get("/artwork", async (request, response) => {
   try {
     const limit = request.query.limit || 10;
@@ -46,38 +37,42 @@ router.get("/artwork/:id", async (req, res) => {
   res.status(200).send({ message: "ok", artwork });
 });
 
-// router.get("/artwork/:Id", async (req, res, next) => {
-//   try {
-//     const art = await Artwork.findByPk(artId);
-//     if (!art) {
-//       return res.status(404).send("Artwork not found");
-//     } else {
-//       return res.json(art);
-//     }
-//   } catch (e) {
-//     next(e);
-//   }
-// });
+router.get("/artwork/:Id/bids", async (req, res, next) => {
+  try {
+    const artworkId = parseInt(req.params.Id);
+    const bids = await Bid.findAll({
+      where: {
+        artworkId: artworkId,
+      },
+    });
+    if (bids) {
+      res.send(bids);
+    } else {
+      res.status(404).send("No bids on artwork");
+    }
+  } catch (e) {
+    next(e);
+  }
+});
 
-// router.get("/artwork/:Id/bids", async (req, res, next) => {
-//   try {
-//     const artworkId = parseInt(req.params.Id);
-//     const bids = await Bid.findOne({
-//       where: {
-//         artworkId: artworkId,
-//       },
-//     });
-//     if (bids) {
-//       res.send(bids);
-//     } else {
-//       res.status(404).send("No bids on artwork");
-//     }
-//   } catch (e) {
-//     next(e);
-//   }
-// });
+router.post("/artwork/:id/bid", auth, async (req, res) => {
+  const art = await Artwork.findByPk(req.params.id);
+  console.log(art);
 
-router.post("/artwork/:userId", auth, async (req, res, next) => {
+  if (art === null) {
+    return res.status(404).send({ message: "This artwork does not exist" });
+  }
+  const { amount } = req.body;
+  if (!amount) {
+    return res.status(400).send({ message: "What's your bid?" });
+  }
+  const bid = await Bid.create({
+    amount,
+  });
+  return res.status(201).send({ message: "Bid done", bid });
+});
+
+router.post("/artwork/:userId/auction", auth, async (req, res, next) => {
   try {
     const title = req.body.title;
     const imageUrl = req.body.imageUrl;
@@ -108,6 +103,16 @@ router.patch("/artwork/:id", auth, async (req, res) => {
   }
   const { title, imageUrl, hearts, minimumBid } = req.body;
   await art.update({ title, imageUrl, hearts, minimumBid });
+  return res.status(200).send({ art });
+});
+
+router.patch("/artwork/:id/hearts", async (req, res) => {
+  //e.preventDefault();
+  const artId = parseInt(req.params.id);
+  const art = await Artwork.findByPk(artId);
+  const { hearts } = req.body;
+  //await art.increment("hearts");
+  await art.update({ hearts });
   return res.status(200).send({ art });
 });
 
